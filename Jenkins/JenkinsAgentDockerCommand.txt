@@ -1,0 +1,2 @@
+# for windows container
+docker run --name jenkins_master -d -i -p 8080:8080 -p 8081:50000 -v jekins_master_volume:C:/ProgramData/Jenkins/JenkinsHome jenkins/jenkins:2.528.1-windowsservercore-ltsc2019
