@@ -12,6 +12,7 @@ RUN `
     curl -SL --output vs_buildtools.exe https://aka.ms/vs/17/release/vs_buildtools.exe `
     `
     # Install Build Tools with the Microsoft.VisualStudio.Workload.AzureBuildTools workload, excluding workloads and components with known issues.
+    # component id links: https://learn.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-professional?view=vs-2022
     && (start /w vs_buildtools.exe --quiet --wait --norestart --nocache `
         --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2022\BuildTools" `
         --add Microsoft.NetCore.Component.SDK `
