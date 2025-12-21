@@ -1,1 +1,3 @@
 *.swp
+MSSQLWindowsServer/SQLServer*x64*.box
+MSSQLWindowsServer/SQLServer*x64*.exe
