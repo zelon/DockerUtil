@@ -1,0 +1,53 @@
+set langmenu=en_US      " set english menu            
+:let $LANG='en'         " set english message
+set guifont=D2Coding:h11
+set encoding=utf-8      " set utf-8 default encoding
+colors torte
+syn on
+set number
+set nobackup
+set ic             " do incremental search
+set is
+set hls				" highlighted-search. Use nohls if don't want highlight
+set ruler          " show status
+set laststatus=2   " show statusline always
+set wildmenu
+set statusline=%<%F\ \ %h%m%r%y%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",Bomb\":\",NoBomb\").\"]\ \"}%k
+set statusline+=%=
+set statusline+=\ %-14.(Line:%l\/%L,Col:%c%V%)\ %P
+
+set autoindent       " keep first spaces last line's
+set cindent
+set shiftwidth=4     " size of cindent that happen when block opening
+set tabstop=4
+
+set expandtab
+set bs=2           " allow backspacing over everything in insert mode
+set nowrap
+set showmatch     " show matched brace
+set directory=.,$TMP,$TEMP      " set temp directory
+
+filetype plugin indent on
+
+autocmd GUIENTER * simalt ~x
+autocmd VimResized * wincmd =
+
+" load default MS windows key-mapping
+source $VIMRUNTIME/mswin.vim
+
+map <F4>  :set list!
+set listchars=tab:»\ ,eol:↲,trail:˘
+
+" diff
+set diffopt+=iwhite
+nmap <A-Down> ]c
+nmap <A-Up> [c
+nmap <A-Left> :diffget<CR>
+nmap <A-Right> :diffput<CR>
+nmap <F5> :diffupdate<CR>
+
+" prevent from cancel visual mode when pressing ctrl+f
+set keymodel=startsel
+
+" unmapping Ctrl+F to use Ctrl+F as PageDown
+unmap <C-F>

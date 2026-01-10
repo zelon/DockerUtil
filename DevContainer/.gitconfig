@@ -1,0 +1,8 @@
+[core]
+	fscache = true
+
+[alias]
+    lg = log --all --graph
+
+[init]
+    defaultBranch = main
