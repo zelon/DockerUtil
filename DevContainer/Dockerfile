@@ -43,6 +43,8 @@ COPY _vimrc /Users/ContainerAdministrator
 COPY .gitconfig /Users/ContainerAdministrator
 COPY Powershell-Profile /Users/ContainerAdministrator/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1
 
+ENV CLAUDE_CONFIG_DIR=C:/Users/ContainerAdministrator/.claude
+
 WORKDIR C:/dev-container-workdir
 
 # Define the entry point for the docker container.
@@ -53,4 +55,5 @@ ENTRYPOINT ["C:\\Program Files\\Microsoft Visual Studio\\BuildTools\\Common7\\To
 # docker build -t dev-container -m 2GB .
 
 # docker run example:
-# docker run --rm -it -v D:/git/dev-container:C:/dev-container-workdir -e GEMINI_API_KEY=$env:GEMINI_API_KEY dev-container
+#  - claude 인증 정보를 저장해놓고 계속 다시 인증하지 않게 하기 위해서 .claude 디렉토리는 volume 에 저장한다
+# docker run --rm -it -v D:/git/dev-container:C:/dev-container-workdir -v dev-container-volume:C:/Users/ContainerAdministrator/.claude -e GEMINI_API_KEY=$env:GEMINI_API_KEY dev-container
