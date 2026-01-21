@@ -1,2 +1,3 @@
 function prompt { "Dev-PS " + (pwd).Path + "> " }
-$DEV = "C:/dev-container-workdir"
+$WORK = "C:/workspace"
+$w = $WORK

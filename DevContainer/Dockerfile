@@ -37,7 +37,8 @@ RUN powershell -NoProfile -ExecutionPolicy Bypass -Command `
 RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "choco install -y --no-progress mc vim git python314 nodejs rust neovim"
 
 RUN npm install -g @anthropic-ai/claude-code `
-    npm install -g @google/gemini-cli
+    npm install -g @google/gemini-cli `
+    npm i -g opencode-ai
 
 COPY _vimrc /Users/ContainerAdministrator
 COPY .gitconfig /Users/ContainerAdministrator
@@ -45,7 +46,7 @@ COPY Powershell-Profile /Users/ContainerAdministrator/Documents/WindowsPowerShel
 
 ENV CLAUDE_CONFIG_DIR=C:/Users/ContainerAdministrator/.claude
 
-WORKDIR C:/dev-container-workdir
+WORKDIR C:/workspace
 
 # Define the entry point for the docker container.
 # This entry point starts the developer command prompt and launches the PowerShell shell.
@@ -56,4 +57,4 @@ ENTRYPOINT ["C:\\Program Files\\Microsoft Visual Studio\\BuildTools\\Common7\\To
 
 # docker run example:
 #  - claude 인증 정보를 저장해놓고 계속 다시 인증하지 않게 하기 위해서 .claude 디렉토리는 volume 에 저장한다
-# docker run --rm -it -v D:/git/dev-container:C:/dev-container-workdir -v dev-container-volume:C:/Users/ContainerAdministrator/.claude -e GEMINI_API_KEY=$env:GEMINI_API_KEY dev-container
+# docker run --rm -it -v D:/git/dev-container:C:/workspace -v dev-container-volume-claude:C:/Users/ContainerAdministrator/.claude -v dev-container-volume-gemini:C:/Users/ContainerAdministrator/.gemini -e GEMINI_API_KEY=$env:GEMINI_API_KEY -e GOOGLE_GENERATIVE_AI_API_KEY=$env:GEMINI_API_KEY dev-container
