@@ -1,3 +1,11 @@
 function prompt { "Dev-PS " + (pwd).Path + "> " }
 $WORK = "C:/workspace"
 $w = $WORK
+git config --global --add safe.directory C:/workspace/
+
+function ClaudeWithAllowingDangerouslySkipPermissions {
+    claude --allow-dangerously-skip-permissions
+}
+Set-Alias -Name clauder -Value ClaudeWithAllowingDangerouslySkipPermissions
+
+$env:PATH += ";C:\Users\ContainerAdministrator\.cargo\bin"

@@ -17,6 +17,7 @@ RUN curl -SL --output vs_buildtools.exe https://aka.ms/vs/stable/vs_BuildTools.e
 RUN (start /w vs_buildtools.exe --quiet --wait --norestart --nocache `
         --installPath "%ProgramFiles%\Microsoft Visual Studio\BuildTools" `
         --add Microsoft.VisualStudio.Workload.AzureBuildTools `
+        --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
         --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 `
         --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 `
         --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 `
@@ -25,8 +26,6 @@ RUN (start /w vs_buildtools.exe --quiet --wait --norestart --nocache `
     # Cleanup
     && del /q vs_buildtools.exe
 
-#RUN choco install -y mc
-
 RUN mkdir C:\Temp
 
 # Chocolatey 설치 스크립트 실행
@@ -34,11 +33,17 @@ RUN powershell -NoProfile -ExecutionPolicy Bypass -Command `
     "[System.Net.ServicePointManager]::SecurityProtocol = 'Tls12'; `
     iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
 
-RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "choco install -y --no-progress mc vim git python314 nodejs rust neovim"
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "choco install -y --no-progress mc vim git python314 nodejs neovim"
 
-RUN npm install -g @anthropic-ai/claude-code `
-    npm install -g @google/gemini-cli `
-    npm i -g opencode-ai
+# rustup 다운로드
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest https://win.rustup.rs/x86_64 -OutFile C:\rustup-init.exe"
+
+# Rust 설치 (MSVC)
+RUN C:\rustup-init.exe -y --default-toolchain stable-x86_64-pc-windows-msvc
+
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "npm install -g @anthropic-ai/claude-code @google/gemini-cli @tauri-apps/cli"
+
+#RUN C:\Users\ContainerAdministrator\.cargo\bin\cargo install tauri-cli
 
 COPY _vimrc /Users/ContainerAdministrator
 COPY .gitconfig /Users/ContainerAdministrator
