@@ -18,6 +18,7 @@ RUN (start /w vs_buildtools.exe --quiet --wait --norestart --nocache `
         --installPath "%ProgramFiles%\Microsoft Visual Studio\BuildTools" `
         --add Microsoft.VisualStudio.Workload.AzureBuildTools `
         --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+        --add Microsoft.VisualStudio.Component.Windows11SDK.26100 `
         --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 `
         --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 `
         --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 `
@@ -43,7 +44,7 @@ RUN C:\rustup-init.exe -y --default-toolchain stable-x86_64-pc-windows-msvc
 
 RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "npm install -g @anthropic-ai/claude-code @google/gemini-cli @tauri-apps/cli"
 
-#RUN C:\Users\ContainerAdministrator\.cargo\bin\cargo install tauri-cli
+RUN C:\Users\ContainerAdministrator\.cargo\bin\cargo install tauri-cli
 
 COPY _vimrc /Users/ContainerAdministrator
 COPY .gitconfig /Users/ContainerAdministrator
