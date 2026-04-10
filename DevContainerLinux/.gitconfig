@@ -1,0 +1,8 @@
+[alias]
+    lg = log --all --graph
+
+[init]
+    defaultBranch = main
+
+[safe]
+    directory = /dev-container-workdir
