@@ -9,3 +9,4 @@ function ClaudeWithAllowingDangerouslySkipPermissions {
 Set-Alias -Name clauder -Value ClaudeWithAllowingDangerouslySkipPermissions
 
 $env:PATH += ";C:\Users\ContainerAdministrator\.cargo\bin"
+$env:PATH += ";C:\Users\ContainerAdministrator\.local\bin"

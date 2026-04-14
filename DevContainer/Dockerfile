@@ -42,15 +42,17 @@ RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest ht
 # Rust 설치 (MSVC)
 RUN C:\rustup-init.exe -y --default-toolchain stable-x86_64-pc-windows-msvc
 
-RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "npm install -g @anthropic-ai/claude-code @google/gemini-cli @tauri-apps/cli"
-
 RUN C:\Users\ContainerAdministrator\.cargo\bin\cargo install tauri-cli
+
+# Gemini Cli, Tauri-App Cli 설치
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "npm install -g @anthropic-ai/claude-code @google/gemini-cli @tauri-apps/cli"
 
 COPY _vimrc /Users/ContainerAdministrator
 COPY .gitconfig /Users/ContainerAdministrator
 COPY Powershell-Profile /Users/ContainerAdministrator/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1
 
 ENV CLAUDE_CONFIG_DIR=C:/Users/ContainerAdministrator/.claude
+ENV CLAUDE_CODE_USE_POWERSHELL_TOOL=1
 
 WORKDIR C:/workspace
 
